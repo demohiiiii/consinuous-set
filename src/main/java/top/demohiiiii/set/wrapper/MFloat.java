@@ -2,6 +2,8 @@ package top.demohiiiii.set.wrapper;
 
 import top.demohiiiii.set.ICalculate;
 
+import java.util.Objects;
+
 public class MFloat implements ICalculate<MFloat> {
 
     private float value;
@@ -18,6 +20,14 @@ public class MFloat implements ICalculate<MFloat> {
         this.value = value;
         one = new MFloat();
         one.value = stepLength;
+    }
+
+    public static MFloat of(float value) {
+        return new MFloat(value);
+    }
+
+    public float getValue() {
+        return value;
     }
 
     @Override
@@ -43,5 +53,18 @@ public class MFloat implements ICalculate<MFloat> {
     @Override
     public int compareTo(MFloat o) {
         return Float.compare(this.value, o.value);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MFloat mFloat = (MFloat) o;
+        return Float.compare(mFloat.value, value) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value);
     }
 }

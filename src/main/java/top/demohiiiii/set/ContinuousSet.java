@@ -238,13 +238,17 @@ public class ContinuousSet<T extends ICalculate<T>> implements Set<T> {
 
         @Override
         public boolean hasNext() {
-            return current.compareTo(last()) < 0;
+            return current.compareTo(last) < 0;
         }
 
         @Override
         public T next() {
+            T value = current;
             current = current.add(current.one());
-            return current;
+            if (current.compareTo(last) > 0) {
+                current = last;
+            }
+            return value;
         }
     }
 }

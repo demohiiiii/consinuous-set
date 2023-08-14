@@ -2,6 +2,8 @@ package top.demohiiiii.set.wrapper;
 
 import top.demohiiiii.set.ICalculate;
 
+import java.util.Objects;
+
 public class MInteger implements ICalculate<MInteger> {
 
     private int value;
@@ -20,6 +22,10 @@ public class MInteger implements ICalculate<MInteger> {
         this.one.value = stepLength;
     }
 
+    public static MInteger of(int value) {
+        return new MInteger(value);
+    }
+
     public int getValue() {
         return value;
     }
@@ -31,12 +37,12 @@ public class MInteger implements ICalculate<MInteger> {
 
     @Override
     public MInteger add(MInteger m) {
-        return new MInteger(this.value + m.value);
+        return new MInteger(this.value + m.value, this.one.value);
     }
 
     @Override
     public MInteger sub(MInteger m) {
-        return new MInteger(this.value - m.value);
+        return new MInteger(this.value - m.value, this.one.value);
     }
 
     @Override
@@ -47,5 +53,18 @@ public class MInteger implements ICalculate<MInteger> {
     @Override
     public int compareTo(MInteger o) {
         return Integer.compare(this.value, o.value);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MInteger mInteger = (MInteger) o;
+        return value == mInteger.value;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value);
     }
 }
